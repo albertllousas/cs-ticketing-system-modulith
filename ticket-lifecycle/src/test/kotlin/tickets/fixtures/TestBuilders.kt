@@ -1,4 +1,4 @@
-package fixtures
+package tickets.fixtures
 
 import tickets.domain.Ticket
 import tickets.domain.TicketStatus

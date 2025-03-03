@@ -1,7 +1,7 @@
 package agentcenter.app
 
 import agentcenter.domain.AgentRepository
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

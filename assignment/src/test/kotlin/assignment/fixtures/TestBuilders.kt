@@ -1,4 +1,4 @@
-package fixtures.ai
+package assignment.fixtures
 
 import assignment.domain.AgentAssignments
 import assignment.domain.AssignedTicket

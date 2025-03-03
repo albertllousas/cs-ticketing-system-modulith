@@ -1,4 +1,4 @@
-package fixtures
+package customermgmt.fixtures
 
 import customermgmt.domain.Customer
 import customermgmt.domain.Tier

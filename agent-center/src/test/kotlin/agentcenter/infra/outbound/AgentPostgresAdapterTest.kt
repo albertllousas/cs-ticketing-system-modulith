@@ -1,6 +1,6 @@
 package agentcenter.infra.outbound
 
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import fixtures.containers.Postgres
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe

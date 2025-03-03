@@ -1,12 +1,16 @@
 package agentcenter.infra.inbound
 
+import agentcenter.fixtures.TestModuleApp
 import agentcenter.app.CreateAgentService
 import agentcenter.app.QueryHomeService
 import agentcenter.app.SetAvailabilityService
 import agentcenter.domain.AssignedTicket
+import agentcenter.domain.CreateAgentError
+import agentcenter.domain.CreateAgentError.CreateAgentErrorReason.INVALID_LANGUAGE
 import agentcenter.domain.Home
 import agentcenter.domain.Priority
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
+import arrow.core.left
 import arrow.core.right
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -21,14 +25,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import shared.RootApp
 import java.util.Locale
 import java.util.Locale.ENGLISH
 import java.util.UUID
 
 @Tag("integration")
 @WebMvcTest(AgentRestAdapter::class)
-@ContextConfiguration(classes = [RootApp::class])
+@ContextConfiguration(classes = [TestModuleApp::class])
 class AgentRestAdapterTest(@Autowired private val mvc: MockMvc) {
 
     @MockkBean
@@ -68,6 +71,35 @@ class AgentRestAdapterTest(@Autowired private val mvc: MockMvc) {
 
         response.andExpect(status().isCreated)
         response.andExpect(content().json(""" { "id": "$agentId" } """))
+    }
+
+    @Test
+    fun `should fail when creating an agent an agent fails`() {
+        every {
+            createAgent.invoke(
+                "jane.doe@gmail.com",
+                "Jane Doe",
+                listOf("Technical background"),
+                listOf(ENGLISH, Locale.GERMAN)
+            )
+        } returns CreateAgentError(reason = INVALID_LANGUAGE).left()
+
+        val response = mvc.perform(
+            post("/agents")
+                .contentType("application/json")
+                .content(
+                    """ { 
+                        |"email": "jane.doe@gmail.com", 
+                        |"fullName": "Jane Doe", 
+                        |"skills": ["Technical background"], 
+                        |"languages": ["en", "de"]
+                        |} """
+                        .trimMargin()
+                )
+        )
+
+        response.andExpect(status().isBadRequest)
+        response.andExpect(content().json(""" { "reason": "INVALID_LANGUAGE" } """))
     }
 
     @Test

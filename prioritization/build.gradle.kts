@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.data.jdbc)
     implementation(libs.spring.ai.core)
     implementation(libs.spring.ai.openai)

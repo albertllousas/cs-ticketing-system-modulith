@@ -1,2 +1,1 @@
 # CS Ticketing System - Modulith
-

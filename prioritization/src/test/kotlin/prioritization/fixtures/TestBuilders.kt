@@ -1,4 +1,4 @@
-package fixtures
+package prioritization.fixtures
 
 import prioritization.domain.Priority
 import prioritization.domain.Priority.LOW

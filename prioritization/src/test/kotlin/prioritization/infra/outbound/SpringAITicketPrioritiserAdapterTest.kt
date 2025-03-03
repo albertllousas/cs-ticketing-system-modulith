@@ -1,6 +1,6 @@
 package prioritization.infra.outbound
 
-import fixtures.ai.FakeChatClient
+import prioritization.fixtures.ai.FakeChatClient
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.springframework.core.io.ClassPathResource

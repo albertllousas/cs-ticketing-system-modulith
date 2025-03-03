@@ -1,4 +1,4 @@
-package fixtures.ai
+package assignment.fixtures.ai
 
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.messages.AssistantMessage

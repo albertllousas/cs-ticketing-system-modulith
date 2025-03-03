@@ -1,7 +1,7 @@
 package customermgmt.app
 
 import customermgmt.domain.CustomerRepository
-import fixtures.TestBuilders
+import customermgmt.fixtures.TestBuilders
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

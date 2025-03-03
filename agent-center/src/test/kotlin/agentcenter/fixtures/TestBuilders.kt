@@ -1,4 +1,4 @@
-package agentcenter.infra.outbound.fixtures
+package agentcenter.fixtures
 
 import agentcenter.domain.Agent
 import agentcenter.domain.AgentStatus

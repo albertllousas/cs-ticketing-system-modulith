@@ -1,6 +1,6 @@
 package customermgmt.infra.outbound
 
-import fixtures.TestBuilders
+import customermgmt.fixtures.TestBuilders
 import fixtures.containers.Postgres
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe

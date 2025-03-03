@@ -1,6 +1,6 @@
 package prioritization.infra.outbound
 
-import fixtures.TestBuilders
+import prioritization.fixtures.TestBuilders
 import fixtures.containers.Postgres
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe

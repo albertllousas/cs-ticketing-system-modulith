@@ -9,6 +9,8 @@ repositories {
 
 dependencies {
     implementation(libs.spring.boot.starter)
+    implementation(libs.spring.boot.starter.data.jdbc)
+    implementation(libs.hikariCP)
 }
 
 testing {

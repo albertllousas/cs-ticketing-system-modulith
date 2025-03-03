@@ -1,0 +1,70 @@
+server:
+  port: 8080
+  undertow:
+    eager-filter-init: true
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /management
+      exposure:
+        include:
+          - info
+          - health
+          - metrics
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    metrics:
+      enabled: true
+  health:
+    db:
+      enabled: false
+  metrics:
+    export:
+      statsd:
+        host: "172.17.0.1"
+    enable:
+      all: true
+
+info:
+  app:
+    java:
+      source: '11'
+      target: '11'
+
+spring:
+  application:
+    name: 'ticketing-system'
+  main:
+    banner-mode: 'off'
+  mvc:
+    favicon:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      pool-name: HikariPool-1
+      connection-timeout: 30000
+      max-lifetime: 1800000
+  flyway:
+    url: jdbc:postgresql://localhost:5432/ticketingsystem
+    schemas: public
+    user: ${DATABASE_USER_FLYWAY}
+    password: ${DATABASE_PASS_FLYWAY}
+    enabled: false # Manual Flyway
+
+modules:
+  agent-center:
+    valid-languages: en,fr,de,es
+

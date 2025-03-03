@@ -1,6 +1,6 @@
 package tickets.app
 
-import fixtures.TestBuilders
+import tickets.fixtures.TestBuilders
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

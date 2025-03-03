@@ -1,6 +1,6 @@
 package agentcenter.infra.outbound
 
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import io.mockk.spyk
 import io.mockk.verify
 import org.junit.jupiter.api.Tag

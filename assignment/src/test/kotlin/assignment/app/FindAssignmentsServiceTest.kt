@@ -1,7 +1,7 @@
 package assignment.app
 
 import assignment.domain.AgentAssignmentsRepository
-import fixtures.ai.TestBuilders
+import assignment.fixtures.TestBuilders
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

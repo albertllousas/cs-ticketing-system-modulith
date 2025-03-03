@@ -4,7 +4,7 @@ import agentcenter.domain.AgentStatus.OFFLINE
 import agentcenter.domain.AgentStatus.ONLINE
 import agentcenter.domain.CreateAgentError.CreateAgentErrorReason.INVALID_LANGUAGE
 import agentcenter.domain.SetAvailabilityError.SetAvailabilityErrorReason.NO_CHANGES
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import arrow.core.left
 import arrow.core.right
 import io.kotest.matchers.shouldBe

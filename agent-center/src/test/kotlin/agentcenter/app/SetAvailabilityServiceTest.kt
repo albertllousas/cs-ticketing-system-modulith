@@ -4,7 +4,7 @@ import agentcenter.domain.AgentRepository
 import agentcenter.domain.AgentStatus.OFFLINE
 import agentcenter.domain.SetAvailabilityError
 import agentcenter.domain.SetAvailabilityError.SetAvailabilityErrorReason.AGENT_NOT_FOUND
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import arrow.core.left
 import arrow.core.right
 import io.kotest.matchers.shouldBe

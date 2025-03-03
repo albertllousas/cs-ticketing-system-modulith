@@ -11,7 +11,7 @@ import assignment.domain.Ticket
 import assignment.domain.Ticket.Priority.*
 import assignment.domain.Ticket.Status
 import assignment.domain.Ticket.Status.*
-import fixtures.ai.FakeChatClient
+import assignment.fixtures.ai.FakeChatClient
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldMatch
 import org.junit.jupiter.api.Test
@@ -19,7 +19,10 @@ import org.springframework.core.io.ClassPathResource
 import shared.AssignmentAttemptFailed
 import shared.AssignmentAttemptFailed.Reason.NO_SUITABLE_AGENT_AVAILABLE
 import shared.TicketAssigned
+import java.time.Clock
+import java.time.Instant
 import java.time.LocalDateTime.now
+import java.time.ZoneOffset.UTC
 import java.util.Locale
 import java.util.Locale.*
 import java.util.UUID
@@ -27,27 +30,31 @@ import java.util.UUID.*
 
 class SpringAITicketAssignerAdapterTest {
 
-    val fakeChatClient = FakeChatClient("")
+    private val fakeChatClient = FakeChatClient("")
+
+    private val clock = Clock.fixed(Instant.parse("2007-12-03T10:15:30.00Z"), UTC)
 
     private val assigner = SpringAITicketAssignerAdapter(
         ticketAssignerChatClient = fakeChatClient,
-        promptResource = ClassPathResource("assignment_prompt.txt")
+        promptResource = ClassPathResource("assignment_prompt.txt"),
+        clock = clock
     )
 
     @Test
     fun `should prioritize ticket using the expected prompt`() {
         val llmAnswer = randomUUID().toString()
-        val agentId = fromString("c24099c8-6a20-4e99-a838-0534f763ba96")
+        val ticketId = fromString("c24099c8-6a20-4e99-a838-0534f763ba96")
         val ticket = Ticket(
-            agentId,
+            ticketId,
             "Unable to access account",
             "I am not able to log into my account despite using the correct credentials.",
             Customer(randomUUID(), ENGLISH, PREMIUM),
             HIGH,
             OPEN
         )
-        val agent = Agent(fromString("9681a079-d2bf-4275-b2b3-21be98fff67c"), listOf("Accounting"), listOf(ENGLISH, JAPANESE))
-        val assignedTicket = AssignedTicket(agentId, OPEN, now())
+        val agentId = fromString("9681a079-d2bf-4275-b2b3-21be98fff67c")
+        val agent = Agent(agentId, listOf("Accounting"), listOf(ENGLISH, JAPANESE))
+        val assignedTicket = AssignedTicket(ticketId, OPEN, now(clock))
         val agentAssignments = listOf(AgentAssignments(agent.id, listOf(assignedTicket), 1))
         fakeChatClient.fixedAnswer = llmAnswer
 
@@ -58,8 +65,8 @@ class SpringAITicketAssignerAdapterTest {
         )
 
         result shouldBe  Pair(
-            TicketAssigned(ticket.id, agentId),
-            AgentAssignments(agentId, listOf(assignedTicket), 1)
+            TicketAssigned(ticket.id, fromString(llmAnswer)),
+            AgentAssignments(fromString(llmAnswer), listOf(assignedTicket), 0)
 
         ).right()
         fakeChatClient.receivedPrompt shouldBe """

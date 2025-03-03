@@ -11,6 +11,7 @@ kotest = "5.5.5"
 restAssured = "5.4.0"
 jacksonModuleKotlin = "2.18.0"
 springAi = "1.0.0-SNAPSHOT"
+hikariCP = "6.2.1"
 
 [libraries]
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
@@ -23,6 +24,7 @@ flyway-postgresql = { module = "org.flywaydb:flyway-database-postgresql", versio
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jacksonModuleKotlin" }
 spring-ai-core = { module = "org.springframework.ai:spring-ai-core", version.ref = "springAi" }
 spring-ai-openai = { module = "org.springframework.ai:spring-ai-openai", version.ref = "springAi" }
+hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP" }
 
 # test
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }

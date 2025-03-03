@@ -5,7 +5,7 @@ import agentcenter.domain.AssignedTicket
 import agentcenter.domain.AssignedTicketFinder
 import agentcenter.domain.Home
 import agentcenter.domain.Priority
-import agentcenter.infra.outbound.fixtures.TestBuilders
+import agentcenter.fixtures.TestBuilders
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk

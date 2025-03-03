@@ -33,7 +33,7 @@ class AgentRestAdapter(
     fun create(@RequestBody request: CreateAgentHttpRequest) =
         createAgent(request.email, request.fullName, request.skills, request.languages)
             .fold(
-                ifLeft = { ResponseEntity.of(forStatusAndDetail(BAD_REQUEST, it.reason.toString())) },
+                ifLeft = { ResponseEntity.status(BAD_REQUEST).body(HttpError(it.reason.name)) },
                 ifRight = { ResponseEntity.status(CREATED).body(CreateAgentHttpResponse(it)) }
             )
 
@@ -98,3 +98,5 @@ data class AssignedTicketHttpResponse(
 )
 
 enum class PriorityHttpResponse { LOW, MEDIUM, HIGH }
+
+data class HttpError(val reason: String)
