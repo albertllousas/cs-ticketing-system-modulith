@@ -14,7 +14,6 @@ dependencies {
     implementation(libs.flyway)
     implementation(libs.testcontainers)
     implementation(libs.testcontainers.postgresql)
-    implementation(libs.testcontainers.ollama)
     implementation(project(":shared-kernel"))
 }
 
